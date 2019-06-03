@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 public class RedPencil {
@@ -11,22 +12,22 @@ public class RedPencil {
         this.startDate = startDate;
     }
 
-    public double calculateDiscountedPrice(int days, double initialPrice, double discount) {
+    public BigDecimal calculateDiscountedPrice(int days, double discount) {
         double minimumDiscount = .05;
         double maximumDiscount = .3;
 
         if (days > 30 && days <= 60) {
-            return getDiscountedPrice(initialPrice, discount, minimumDiscount, maximumDiscount);
+            return getDiscountedPrice(initialPrice, discount, minimumDiscount, maximumDiscount).setScale(2, RoundingMode.HALF_UP);
         }
-        return initialPrice;
+        return initialPrice.setScale(2, RoundingMode.HALF_UP);
     }
 
-    private Double getDiscountedPrice(double price, double discount, double minimumDiscount, double maximumDiscount) {
+    private BigDecimal getDiscountedPrice(BigDecimal price, double discount, double minimumDiscount, double maximumDiscount) {
         if (checkDiscount(discount, minimumDiscount, maximumDiscount)) {
-            return price * (1 - discount);
+            return price.multiply(BigDecimal.ONE.subtract(new BigDecimal(discount)));
         }
         if (discount > maximumDiscount) {
-            return price * (1 - maximumDiscount);
+            return price.multiply(BigDecimal.ONE.subtract(new BigDecimal(maximumDiscount)));
         }
         return price;
     }

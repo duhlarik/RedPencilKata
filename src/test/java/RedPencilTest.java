@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -8,24 +9,24 @@ import static org.junit.Assert.assertThat;
 
 public class RedPencilTest {
 
-    private double initialPrice = 100;
-    private BigDecimal price;
+    private BigDecimal initialPrice = new BigDecimal(100.00);
     private int days;
     private double discount;
-    private double actual;
-    private double expected;
+    private BigDecimal actual;
+    private BigDecimal expected;
 
-    private RedPencil redPencil = new RedPencil(price, LocalDate.now());
+    private RedPencil redPencil = new RedPencil(initialPrice, LocalDate.now());
 
 
     @Test
     public void priceWillRemainTheSameIfNotReducedByAtLeastFivePercent() {
 
+
         days = 31;
         discount = .04;
 
-        actual = redPencil.calculateDiscountedPrice(days, initialPrice, discount);
-        expected = initialPrice;
+        actual = redPencil.calculateDiscountedPrice(days, discount);
+        expected = initialPrice.setScale(2, RoundingMode.HALF_UP);
 
         assertThat(actual, is(expected));
     }
@@ -35,10 +36,9 @@ public class RedPencilTest {
 
         days = 31;
         discount = .4;
-        double maximumDiscount = .3;
 
-        actual = redPencil.calculateDiscountedPrice(days, initialPrice, discount);
-        expected = initialPrice * (1 - maximumDiscount);
+        actual = redPencil.calculateDiscountedPrice(days, discount);
+        expected = new BigDecimal(70.00).setScale(2, RoundingMode.HALF_UP);
 
         assertThat(actual, is(expected));
     }
@@ -49,8 +49,8 @@ public class RedPencilTest {
         days = 61;
         discount = .05;
 
-        actual = redPencil.calculateDiscountedPrice(days, initialPrice, discount);
-        expected = initialPrice;
+        actual = redPencil.calculateDiscountedPrice(days, discount);
+        expected = initialPrice.setScale(2, RoundingMode.HALF_UP);
 
         assertThat(actual, is(expected));
     }
