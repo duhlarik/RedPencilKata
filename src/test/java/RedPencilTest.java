@@ -1,31 +1,22 @@
 import org.junit.Test;
 
-import java.awt.event.ItemEvent;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class RedPencilTest {
 
     private double initialPrice = 100;
+    private BigDecimal price;
     private int days;
     private double discount;
     private double actual;
     private double expected;
 
-    private RedPencil redPencil = new RedPencil();
+    private RedPencil redPencil = new RedPencil(price, LocalDate.now());
 
-
-    @Test
-    public void priceShouldBeStableForThirtyDaysBeforePriceChange() {
-
-        days = 30;
-
-        boolean actual = redPencil.availableForDiscount(days);
-
-        assertTrue(actual);
-    }
 
     @Test
     public void priceWillRemainTheSameIfNotReducedByAtLeastFivePercent() {
@@ -62,17 +53,5 @@ public class RedPencilTest {
         expected = initialPrice;
 
         assertThat(actual, is(expected));
-    }
-
-    @Test
-    public void anAdditionalDiscountOnAnAlreadyReducedItemWillNotProlongTheSalePast30Days() {
-
-        days = 31;
-        discount = .05;
-
-        redPencil.calculateDiscountedPrice(days, initialPrice, discount);
-
-        double discountedPrice = 0;
-        redPencil.applyDiscount(discountedPrice);
     }
 }

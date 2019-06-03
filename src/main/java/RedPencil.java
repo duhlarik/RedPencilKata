@@ -1,7 +1,14 @@
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 public class RedPencil {
 
-    public RedPencil() {
+    public BigDecimal initialPrice;
+    public LocalDate startDate;
 
+    public RedPencil(BigDecimal initialPrice, LocalDate startDate) {
+        this.initialPrice = initialPrice;
+        this.startDate = startDate;
     }
 
     public double calculateDiscountedPrice(int days, double initialPrice, double discount) {
@@ -26,13 +33,5 @@ public class RedPencil {
 
     private boolean checkDiscount(double discount, double minimumDiscount, double maximumDiscount) {
         return discount >= minimumDiscount && discount <= maximumDiscount;
-    }
-
-    public void applyDiscount(double discountedPrice) {
-
-    }
-
-    public boolean availableForDiscount(int days) {
-        return false;
     }
 }
