@@ -22,7 +22,7 @@ public class RedPencil {
         return initialPrice.doubleValue();
     }
 
-    private long getDays(LocalDate startDate, LocalDate endDate) {
+    public long getDays(LocalDate startDate, LocalDate endDate) {
         return ChronoUnit.DAYS.between(startDate, endDate);
     }
 
