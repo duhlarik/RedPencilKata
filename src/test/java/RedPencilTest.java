@@ -1,5 +1,6 @@
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -7,7 +8,7 @@ import static org.junit.Assert.assertThat;
 
 public class RedPencilTest {
 
-    private MyBigDecimal initialPrice = new MyBigDecimal(100.00);
+    private BigDecimal initialPrice = new BigDecimal(100);
     private LocalDate startDate = LocalDate.of(2019, 4, 1);
 
     private double discount;
@@ -35,9 +36,8 @@ public class RedPencilTest {
         discount = .4;
         LocalDate endDate = LocalDate.of(2019, 5, 3);
 
-
         actual = redPencil.calculateDiscountedPrice(startDate, endDate, discount);
-        expected = 70.00;
+        expected = 70;
 
         assertThat(actual, is(expected));
     }

@@ -1,11 +1,12 @@
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public class RedPencil {
 
-    private MyBigDecimal initialPrice;
+    private BigDecimal initialPrice;
 
-    public RedPencil(MyBigDecimal initialPrice) {
+    public RedPencil(BigDecimal initialPrice) {
         this.initialPrice = initialPrice;
     }
 
@@ -25,12 +26,12 @@ public class RedPencil {
         return ChronoUnit.DAYS.between(startDate, endDate);
     }
 
-    private double getDiscountedPrice(MyBigDecimal initialPrice, double discount, double minimumDiscount, double maximumDiscount) {
+    private double getDiscountedPrice(BigDecimal initialPrice, double discount, double minimumDiscount, double maximumDiscount) {
         if (checkDiscount(discount, minimumDiscount, maximumDiscount)) {
-            return initialPrice.multiply(MyBigDecimal.ONE.subtract(new MyBigDecimal(discount))).doubleValue();
+            return initialPrice.multiply(BigDecimal.ONE.subtract(new BigDecimal(discount))).doubleValue();
         }
         if (discount > maximumDiscount) {
-            return initialPrice.multiply(MyBigDecimal.ONE.subtract(new MyBigDecimal(maximumDiscount))).doubleValue();
+            return initialPrice.multiply(BigDecimal.ONE.subtract(new BigDecimal(maximumDiscount))).doubleValue();
         }
         return initialPrice.doubleValue();
     }
