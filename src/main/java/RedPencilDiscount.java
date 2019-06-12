@@ -5,13 +5,9 @@ import java.time.temporal.ChronoUnit;
 public class RedPencilDiscount {
 
     private BigDecimal regularPrice;
-    private LocalDate regularPriceStartDate;
-    private LocalDate promoPriceStartDate;
 
-    public RedPencilDiscount(BigDecimal regularPrice, LocalDate regularPriceStartDate, LocalDate promoPriceStartDate) {
+    public RedPencilDiscount(BigDecimal regularPrice) {
         this.regularPrice = regularPrice;
-        this.regularPriceStartDate = regularPriceStartDate;
-        this.promoPriceStartDate = promoPriceStartDate;
     }
 
     public double calculatePrice(LocalDate regularPriceStartDate, LocalDate promoPriceStartDate, double discount) {

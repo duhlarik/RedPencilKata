@@ -17,7 +17,7 @@ public class RedPencilDiscountTest {
     private double actual;
     private double expected;
 
-    private RedPencilDiscount redPencilDiscount = new RedPencilDiscount(regularPrice, regularPriceStartDate, promoPriceStartDate);
+    private RedPencilDiscount redPencilDiscount = new RedPencilDiscount(regularPrice);
 
     @Test
     public void priceWillRemainAtRegularPriceIfNotReducedByAtLeastFivePercent() {
